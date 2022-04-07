@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    tools:context=".CreateDoc">-->
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/create_doc_main_layout"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_100"
+    android:orientation="vertical"
+    android:weightSum="4">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:indeterminate="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        style="?android:attr/progressBarStyleHorizontal"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="618dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+<!--add the name of the doc-->
+        <EditText
+            android:id="@+id/ud_doc_name"
+            android:layout_width="369dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/doc_control_palette"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="9dp"
+            android:layout_marginEnd="33dp"
+            android:layout_marginBottom="12dp"
+            android:ems="10"
+            android:hint="@string/create_doc_hint"
+            android:inputType="textPersonName"
+            android:text="" />
+
+<!--document builder section -->
+        <LinearLayout
+            android:id="@+id/doc_container"
+            android:layout_width="320dp"
+            android:layout_height="558dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="0dp"
+            android:orientation="horizontal">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/doc_designer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/border"/>
+        </LinearLayout>
+
+<!--        Document create control section -->
+        <LinearLayout
+            android:id="@+id/doc_control_palette"
+            android:layout_width="76dp"
+            android:layout_height="555dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="9dp"
+            android:layout_marginBottom="0dp"
+            android:layout_toStartOf="@+id/doc_container"
+            android:background="@color/ud_grey_extra_light"
+            android:orientation="vertical">
+
+<!--    Description / Heading Section -->
+            <Button
+                android:id="@+id/title_pal"
+                android:layout_width="wrap_content"
+                android:layout_height="75dp"
+                android:background="@drawable/title_text_icon_foreground"
+                android:theme="@style/ThemeOverlay.MyDarkButton" />
+<!--            Large Text Section-->
+<!--            Date Section-->
+            <Button
+                android:id="@+id/calender_pal"
+                android:layout_width="wrap_content"
+                android:layout_height="75dp"
+                android:background="@drawable/calender_icon_foreground"
+                android:theme="@style/ThemeOverlay.MyDarkButton" />
+<!--            Image Section-->
+            <Button
+                android:id="@+id/image_pal"
+                android:layout_width="wrap_content"
+                android:layout_height="75dp"
+                android:background="@drawable/image_icon_foreground"
+                android:theme="@style/ThemeOverlay.MyDarkButton" />
+<!--            Location Section-->
+            <Button
+                android:id="@+id/location_pal"
+                android:layout_width="wrap_content"
+                android:layout_height="75dp"
+                android:background="@drawable/location_icon_foreground"
+                android:theme="@style/ThemeOverlay.MyDarkButton" />
+<!--            Contact Section-->
+            <Button
+                android:id="@+id/contact_pal"
+                android:layout_width="wrap_content"
+                android:layout_height="75dp"
+                android:background="@drawable/contact_icon_foreground"
+                android:theme="@style/ThemeOverlay.MyDarkButton" />
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>

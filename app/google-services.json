@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "945956913489",
+    "project_id": "ultradoc-97f61",
+    "storage_bucket": "ultradoc-97f61.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945956913489:android:59212c55b13f8e341a5370",
+        "android_client_info": {
+          "package_name": "uk.ac.tees.aad.w9580029_ultra_doc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "945956913489-gkbr7t6fvc2bvef1o9hmp2j6q41pufo8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVKUmacAW_8lCnzVySZ4PUalNxZwYs-8I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "945956913489-gkbr7t6fvc2bvef1o9hmp2j6q41pufo8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945956913489:android:4cd25190246b82a81a5370",
+        "android_client_info": {
+          "package_name": "uk.ac.tees.aad.w9580029_ultradoc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "945956913489-gkbr7t6fvc2bvef1o9hmp2j6q41pufo8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVKUmacAW_8lCnzVySZ4PUalNxZwYs-8I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "945956913489-gkbr7t6fvc2bvef1o9hmp2j6q41pufo8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
