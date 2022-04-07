@@ -1,3 +1,31 @@
 <resources>
-    <string name="app_name">w9580029_ultra_doc</string>
+    <string name="app_name">Ultra Doc</string>
+    <string name="title_activity_create_doc">CreateDocActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="auth_failed">Authentication failed</string>
+    <string name="create_account">Sign Up</string>
+    <string name="desc_scedt_logo">Ultra Doc Logo</string>
+    <string name="email_password_status_fmt">Email User: %1$s (verified: %2$b)</string>
+    <string name="login_desc">Sign In to Ultra Doc</string>
+    <string name="welcome_desc">Welcome to Ultra Doc</string>
+    <string name="firebase_status_fmt">Firebase UID: %s</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="reload">Reload</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="signed_in">Signed In</string>
+    <string name="signed_out">Signed Out</string>
+    <string name="verify_email">Verify</string>
+    <string name="create_doc_hint">Document name</string>
+    <!--    Palete Section-->
+    <string name="title_pal_txt">Title</string>
+    <string name="Image_pal_txt">Image</string>
+    <string name="location_pal_txt">Location</string>
+    <string name="contact_pal_txt">Contact</string>
 </resources>
