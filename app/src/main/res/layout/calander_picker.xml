@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <DatePicker
+        android:id="@+id/datePicker1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+<!--    <Button-->
+<!--        android:id="@+id/button1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@+id/datePicker1"-->
+<!--        android:layout_marginLeft="100dp"-->
+<!--        android:text="Get Date" />-->
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/datePicker1"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:textStyle="normal"
+        android:textAlignment="center"
+        android:text="@string/calander_help_text"
+        android:textSize="12dp"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView1"
+        android:id="@+id/dateRadioGroup"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp">
+        <RadioButton android:id="@+id/date_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Left"
+            android:onClick="onCalenderPositionClicked"/>
+        <RadioButton android:id="@+id/date_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Center"
+            android:onClick="onCalenderPositionClicked"/>
+        <RadioButton android:id="@+id/date_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Right"
+            android:onClick="onCalenderPositionClicked"/>
+    </RadioGroup>
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dateRadioGroup"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_centerInParent="true"
+        >
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dateRadioGroup"
+            android:id="@+id/dateAdd"
+            android:text="Add"
+            ></Button>
+
+        <Button
+            android:id="@+id/dateCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@id/dateRadioGroup"
+            android:text="Cancel"></Button>
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:visibility="invisible"
+    android:id="@+id/getDateTextView"></TextView>
+</RelativeLayout>
