@@ -28,4 +28,8 @@
     <string name="Image_pal_txt">Image</string>
     <string name="location_pal_txt">Location</string>
     <string name="contact_pal_txt">Contact</string>
+
+    <string name="create_doc_btn_txt">Create Doc</string>
+    <string name="list_doc_btn_txt">List Doc</string>
+    <string name="calander_help_text">Choose where to position the date on document</string>
 </resources>

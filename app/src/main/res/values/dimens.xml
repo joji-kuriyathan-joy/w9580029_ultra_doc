@@ -10,4 +10,5 @@
     <dimen name="field_width_standard">160dp</dimen>
 
     <dimen name="button_horizontal_margin">8dp</dimen>
+    <dimen name="button_horizontal_margin_lite">4dp</dimen>
 </resources>

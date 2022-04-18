@@ -54,6 +54,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         findViewById(R.id.verifyEmailButton).setOnClickListener(this);
         findViewById(R.id.reloadButton).setOnClickListener(this);
 
+        findViewById(R.id.create_doc_btn).setOnClickListener(this);
+        findViewById(R.id.list_doc_btn).setOnClickListener(this);
+
         // [START initialize_auth]
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -231,14 +234,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             findViewById(R.id.signedInButtons).setVisibility(View.VISIBLE);
 
             if (user.isEmailVerified()) {
-                findViewById(R.id.verifyEmailButton).setVisibility(View.GONE);
+                findViewById(R.id.verifyEmailButton).setVisibility(View.INVISIBLE);
             } else {
-                findViewById(R.id.verifyEmailButton).setVisibility(View.VISIBLE);
+                findViewById(R.id.verifyEmailButton).setVisibility(View.INVISIBLE);
             }
 
-            Intent i;
-            i = new Intent(getApplicationContext(), CreateDocActivity.class);
-            startActivity(i);
 
         } else {
             mLoginInDesc.setText(getString(R.string.login_desc));
@@ -249,6 +249,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             findViewById(R.id.emailPasswordFields).setVisibility(View.VISIBLE);
             findViewById(R.id.signedInButtons).setVisibility(View.GONE);
         }
+    }
+
+    private void onCreateDocClick(){
+
+        Intent i;
+        i = new Intent(getApplicationContext(), CreateDocActivity.class);
+        i.putExtra("isNewDoc","true");
+        startActivity(i);
+    }
+
+    private void onLisDocClick(){
+
     }
     @Override
     public void onClick(View view) {
@@ -263,6 +275,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             sendEmailVerification();
         } else if (i == R.id.reloadButton) {
             reload();
+        }
+        else if( i== R.id.list_doc_btn){
+
+        }
+        else if(i == R.id.create_doc_btn){
+            onCreateDocClick();
+        }
+        else{
+            Log.d("ButtonError","Unable to find the click event");
         }
     }
 }
