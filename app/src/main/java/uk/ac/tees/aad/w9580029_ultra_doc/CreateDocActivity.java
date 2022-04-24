@@ -120,9 +120,9 @@ public class CreateDocActivity extends  CreateDocModelActivity implements  View.
             add_title_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    recyclerModelList.add(new RecyclerModel(title_desc_textView.getText().toString()));
+                    DesignerAdapter.setLayoutInflate("title");
+                    recyclerModelList.add(new RecyclerModel(title_desc_textView.getText().toString(),""));
                     adapter = new DesignerAdapter(recyclerModelList);
-
                     mCreateDocContainer.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                     title_dialog.dismiss();
@@ -185,15 +185,40 @@ public class CreateDocActivity extends  CreateDocModelActivity implements  View.
             add_date.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    cur_dateTextview.setText("Selected Date: "
-                            + datePicker1.getDayOfMonth()+"/"+ (datePicker1.getMonth() + 1)
+                    cur_dateTextview.setText( datePicker1.getDayOfMonth()+"/"+
+                            (datePicker1.getMonth() + 1)
                             +"/"+datePicker1.getYear());
+                    //get the position to display the date
                     String choosed_position = getCalander_position();
-                    Toast.makeText(CreateDocActivity.this, "choosed_date: "
-                            +cur_dateTextview.getText().toString()+" & Position : "
-                            +choosed_position, Toast.LENGTH_SHORT).show();
-                    datePickerDialog.dismiss();
-                    calanderDialog.dismiss();
+                    DesignerAdapter.setLayoutInflate("calender");
+                    if(choosed_position.equalsIgnoreCase("")){
+                        //User has not choose the position so show a toast to choose
+                        //any one of the postion
+                        Toast.makeText(CreateDocActivity.this,"Warning!\n " +
+                                "Please choose where to position the date on the document",
+                                Toast.LENGTH_SHORT).show();
+
+                    }
+                    else if(cur_dateTextview.getText().toString().equalsIgnoreCase("")){
+                        Toast.makeText(CreateDocActivity.this,"Warning!\n " +
+                                        "Please choose date.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(CreateDocActivity.this, "choosed_date: "
+                                +cur_dateTextview.getText().toString()+" & Position : "
+                                +choosed_position, Toast.LENGTH_SHORT).show();
+
+
+
+                        recyclerModelList.add(new RecyclerModel("", cur_dateTextview.getText().toString() + "~~" + choosed_position));
+                        Log.d("len","+++++Len recyclerModelList : ++++"+String.valueOf(recyclerModelList.size()));
+                         adapter = new DesignerAdapter(recyclerModelList);
+                        mCreateDocContainer.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                        datePickerDialog.dismiss();
+                        calanderDialog.dismiss();
+                    }
                 }
             });
 
