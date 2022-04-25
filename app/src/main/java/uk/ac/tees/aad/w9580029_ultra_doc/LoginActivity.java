@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "EmailPassword";
@@ -251,17 +252,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-    private void onCreateDocClick(){
+    private void onCreateDocClick() {
 
         Intent i;
         i = new Intent(getApplicationContext(), CreateDocActivity.class);
-        i.putExtra("isNewDoc","true");
+        i.putExtra("isNewDoc", "true");
         startActivity(i);
     }
 
-    private void onLisDocClick(){
+    private void onLisDocClick() {
 
     }
+
     @Override
     public void onClick(View view) {
         int i = view.getId();
@@ -275,15 +277,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             sendEmailVerification();
         } else if (i == R.id.reloadButton) {
             reload();
-        }
-        else if( i== R.id.list_doc_btn){
+        } else if (i == R.id.list_doc_btn) {
 
-        }
-        else if(i == R.id.create_doc_btn){
+        } else if (i == R.id.create_doc_btn) {
             onCreateDocClick();
-        }
-        else{
-            Log.d("ButtonError","Unable to find the click event");
+        } else {
+            Log.d("ButtonError", "Unable to find the click event");
         }
     }
 }
