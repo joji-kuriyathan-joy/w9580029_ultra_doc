@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/map_cardview"
+            android:layout_marginTop="3dp"
+            app:cardCornerRadius="4dp"
+
+            app:cardBackgroundColor="@color/ud_light_green">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:id="@+id/mapImage_capture"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/image_picker_demo_foreground"></ImageView>
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

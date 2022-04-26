@@ -24,6 +24,7 @@ public class DesignerAdapter extends RecyclerView.Adapter<DesignerAdapter.ViewHo
     private final int TITLE_VIEW = 1;
     private final int CALENDER_VIEW = 2;
     private final int IMAGE_VIEW = 3;
+    private final int LOCATION_VIEW =4;
 
     public DesignerAdapter(List<RecyclerModel> recyclerModelList) {
         Log.d("MethodNm:", "+++++++++++ constructor DesignerAdapter +++++++++");
@@ -56,6 +57,9 @@ public class DesignerAdapter extends RecyclerView.Adapter<DesignerAdapter.ViewHo
         } else if (viewType == IMAGE_VIEW) {
             cur_view = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_item_design, parent, false);
         }
+        else if(viewType == LOCATION_VIEW){
+            cur_view = LayoutInflater.from(parent.getContext()).inflate(R.layout.map_item_design, parent, false);
+        }
 
         return new ViewHolder(cur_view);
     }
@@ -74,6 +78,10 @@ public class DesignerAdapter extends RecyclerView.Adapter<DesignerAdapter.ViewHo
             Bitmap imageBitMap = recyclerModelList.get(position).getImageUrl();
             holder.setImageData(imageBitMap);
         }
+        else if(holder.getItemViewType() == LOCATION_VIEW){
+            Bitmap mapBitMap = recyclerModelList.get(position).getLocationURL();
+            holder.setMapData(mapBitMap);
+        }
     }
 
     @Override
@@ -81,14 +89,20 @@ public class DesignerAdapter extends RecyclerView.Adapter<DesignerAdapter.ViewHo
         String title_view = recyclerModelList.get(position).getTitle_description();
         String calander_view = recyclerModelList.get(position).getCurrent_date();
         boolean is_image_view = recyclerModelList.get(position).getImageCapture();
+        boolean is_location_view = recyclerModelList.get(position).getLocationCapture();
         Log.d("ISIMAGE", "===>>>>" + is_image_view);
+
+        Log.d("ISLOcation", "===>>>>" + is_location_view);
         if (title_view != null && title_view.trim().length() > 0) {
             return TITLE_VIEW;
         } else if (calander_view != null && calander_view.trim().length() > 0) {
             return CALENDER_VIEW;
         } else if (is_image_view) {
             return IMAGE_VIEW;
-        } else {
+        }else if (is_location_view){
+            return LOCATION_VIEW;
+        }
+        else {
             return -1;
         }
     }
@@ -104,7 +118,7 @@ public class DesignerAdapter extends RecyclerView.Adapter<DesignerAdapter.ViewHo
 
         private TextView title_desc_textView;
         private TextView date_left_tv, date_center_tv, date_right_tv;
-        private ImageView imageViewCapture;
+        private ImageView imageViewCapture,mapViewCapture;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -114,7 +128,7 @@ public class DesignerAdapter extends RecyclerView.Adapter<DesignerAdapter.ViewHo
             date_center_tv = itemView.findViewById(R.id.date_tv_center);
             date_right_tv = itemView.findViewById(R.id.date_tv_right);
             imageViewCapture = itemView.findViewById(R.id.imageView_capture);
-
+            mapViewCapture = itemView.findViewById(R.id.mapImage_capture);
         }
 
         public void setTitleData(String title_desc) {
@@ -148,6 +162,11 @@ public class DesignerAdapter extends RecyclerView.Adapter<DesignerAdapter.ViewHo
         public void setImageData(Bitmap imageBitMap) {
             Log.d("MethodNm:", "+++++++++++ setImageData +++++++++>>>>" + imageBitMap);
             imageViewCapture.setImageBitmap(imageBitMap);
+        }
+
+        public void setMapData(Bitmap mapBitMap) {
+            Log.d("MethodNm:", "+++++++++++ setMapData +++++++++>>>>" + mapBitMap);
+            mapViewCapture.setImageBitmap(mapBitMap);
         }
     }
 }

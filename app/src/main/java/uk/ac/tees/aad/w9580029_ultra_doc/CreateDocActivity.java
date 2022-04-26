@@ -5,6 +5,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +36,8 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.SupportMapFragment;
 
 import org.w3c.dom.Text;
 
@@ -77,6 +81,7 @@ public class CreateDocActivity extends CreateDocModelActivity implements View.On
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
     private Context context;
+    private static MapsFragment mapsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +105,7 @@ public class CreateDocActivity extends CreateDocModelActivity implements View.On
         findViewById(R.id.contact_pal).setOnClickListener(this);
         findViewById(R.id.location_pal).setOnClickListener(this);
         findViewById(R.id.calender_pal).setOnClickListener(this);
+
 
         //check whether it is a new create doc
         Intent intent = getIntent();
@@ -190,7 +196,7 @@ public class CreateDocActivity extends CreateDocModelActivity implements View.On
                 public void onClick(View view) {
                     DesignerAdapter.setLayoutInflate("image");
                     Bitmap bm = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-                    recyclerModelList.add(new RecyclerModel(bm));
+                    recyclerModelList.add(new RecyclerModel(bm,null));
                     adapter = new DesignerAdapter(recyclerModelList);
                     mCreateDocContainer.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
@@ -235,6 +241,12 @@ public class CreateDocActivity extends CreateDocModelActivity implements View.On
             Log.d("Pallet_Clicked", "Contact Button clicked");
         } else if (i == R.id.location_pal) {
             Log.d("Pallet_Clicked", "Location Button clicked");
+
+            //load the map fragment
+            mapsFragment = new MapsFragment();
+            mapsFragment.show(getSupportFragmentManager(),"dialog");
+
+
         } else if (i == R.id.calender_pal) {
             Log.d("Pallet_Clicked", "calender Button clicked");
 
@@ -314,6 +326,15 @@ public class CreateDocActivity extends CreateDocModelActivity implements View.On
         } else {
             Log.d("Unknown_Pallet", "Unable to find the pallet clicked");
         }
+    }
+
+    public void addLocationBitMapToDesigner(Bitmap bitmap){
+        recyclerModelList.add(new RecyclerModel(null,bitmap));
+        adapter = new DesignerAdapter(recyclerModelList);
+        mCreateDocContainer.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        mCreateDocContainer.scrollToPosition(recyclerModelList.size() - 1);
+        mapsFragment.dismiss();
     }
 
     @Override

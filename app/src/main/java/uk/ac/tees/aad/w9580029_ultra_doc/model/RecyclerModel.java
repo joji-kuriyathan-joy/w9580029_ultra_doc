@@ -6,6 +6,18 @@ public class RecyclerModel {
     private String title_description;
     private String current_date;
     private Bitmap imageUrl;
+    private Bitmap locationURL;
+    private boolean isImageCapture = false;
+
+    public boolean getLocationCapture() {
+        return isLocationCapture;
+    }
+
+    public void setLocationCapture(boolean locationCapture) {
+        isLocationCapture = locationCapture;
+    }
+
+    private boolean isLocationCapture = false;
 
     public boolean getImageCapture() {
         return isImageCapture;
@@ -15,7 +27,7 @@ public class RecyclerModel {
         isImageCapture = imageCapture;
     }
 
-    private boolean isImageCapture = false;
+
 
     public Bitmap getImageUrl() {
         return imageUrl;
@@ -35,9 +47,21 @@ public class RecyclerModel {
 
     }
 
-    public RecyclerModel(Bitmap imageUrl) {
+    public RecyclerModel(Bitmap imageUrl,Bitmap locationURL) {
         this.imageUrl = imageUrl;
-        setImageCapture(true);
+        this.locationURL = locationURL;
+        if(imageUrl != null) {
+            setImageCapture(true);
+        }
+        if(locationURL != null){
+            setLocationCapture(true);
+        }
 
     }
+
+    public Bitmap getLocationURL() {
+        return locationURL;
+    }
+
+
 }
