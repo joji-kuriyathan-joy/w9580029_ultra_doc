@@ -29,6 +29,7 @@
         android:layout_marginEnd="34dp"
         android:layout_marginBottom="7dp"
         android:ems="10"
+        android:textColorHint="@color/black"
         android:hint="@string/create_doc_hint"
         android:inputType="textPersonName"
         android:minHeight="48dp"
@@ -108,10 +109,11 @@
                     tools:ignore="SpeakableTextPresentCheck" />
                 <!--            Contact Section-->
                 <Button
-                    android:id="@+id/contact_pal"
+                    android:id="@+id/save_pal"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/contact_icon_foreground"
+                    android:layout_marginLeft="20mm"
+                    android:background="@drawable/save_doc_foreground"
                     android:theme="@style/ThemeOverlay.MyDarkButton"
                     tools:ignore="SpeakableTextPresentCheck" />
             </TableRow>

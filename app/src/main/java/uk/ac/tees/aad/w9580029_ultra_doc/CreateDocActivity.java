@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -14,20 +16,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.util.LruCache;
 import android.view.ContextThemeWrapper;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -37,14 +47,18 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.barteksc.pdfviewer.PDFView;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -102,7 +116,7 @@ public class CreateDocActivity extends CreateDocModelActivity implements View.On
         //Button Click
         findViewById(R.id.title_pal).setOnClickListener(this);
         findViewById(R.id.image_pal).setOnClickListener(this);
-        findViewById(R.id.contact_pal).setOnClickListener(this);
+        findViewById(R.id.save_pal).setOnClickListener(this);
         findViewById(R.id.location_pal).setOnClickListener(this);
         findViewById(R.id.calender_pal).setOnClickListener(this);
 
@@ -237,9 +251,52 @@ public class CreateDocActivity extends CreateDocModelActivity implements View.On
                 }
             });
 
-        } else if (i == R.id.contact_pal) {
-            Log.d("Pallet_Clicked", "Contact Button clicked");
-        } else if (i == R.id.location_pal) {
+        } else if (i == R.id.save_pal) {
+            Log.d("Pallet_Clicked", "Save Button clicked");
+
+            Bitmap recycler_view_bm = getScreenshotFromRecyclerView(mCreateDocContainer);
+
+            try {
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                }
+
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                }
+
+                //getExternalFilesDir("UltraDocPDFGen")
+                //File root = new File(Environment.getExternalStorageDirectory(), "UltraDocPDFGen");
+                File root = new File(getExternalFilesDir("UltraDocPDFGen").toString());
+
+                if (!root.exists()) {
+                    root.mkdirs();
+                }
+                File pdfFile = new File(root, cur_doc_id+".pdf");
+                Log.d("PDFile","Complete_path"+pdfFile.toString());
+                FileOutputStream fOut = new FileOutputStream(pdfFile);
+
+                PdfDocument document = new PdfDocument();
+                PdfDocument.PageInfo pageInfo = new
+                        PdfDocument.PageInfo.Builder(recycler_view_bm.getWidth(), recycler_view_bm.getHeight(), 1).create();
+                PdfDocument.Page page = document.startPage(pageInfo);
+                recycler_view_bm.prepareToDraw();
+                Canvas c;
+                c = page.getCanvas();
+                c.drawBitmap(recycler_view_bm, 0, 0, null);
+                document.finishPage(page);
+                document.writeTo(fOut);
+                document.close();
+                final Snackbar snackbar = Snackbar
+                        .make(view, "PDF generated successfully.", Snackbar.LENGTH_LONG);
+                snackbar.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+         else if (i == R.id.location_pal) {
             Log.d("Pallet_Clicked", "Location Button clicked");
 
             //load the map fragment
@@ -327,6 +384,57 @@ public class CreateDocActivity extends CreateDocModelActivity implements View.On
             Log.d("Unknown_Pallet", "Unable to find the pallet clicked");
         }
     }
+
+
+    //================Method et the content from Recycler view to create  PDF =====================
+    public Bitmap getScreenshotFromRecyclerView(RecyclerView view) {
+        Log.d("PDFile::","+++++getScreenshotFromRecyclerView+++++");
+        RecyclerView.Adapter adapter = view.getAdapter();
+        Bitmap bigBitmap = null;
+        Log.d("PDFile", "Adapter Null or not"+String.valueOf(adapter!=null));
+        if (adapter != null) {
+            int size = adapter.getItemCount();
+            int height = 0;
+            Paint paint = new Paint();
+            int iHeight = 0;
+            final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+
+            // Use 1/8th of the available memory for this memory cache.
+            final int cacheSize = maxMemory / 8;
+            LruCache<String, Bitmap> bitmaCache = new LruCache<>(cacheSize);
+            for (int i = 0; i < size; i++) {
+                RecyclerView.ViewHolder holder = adapter.createViewHolder(view, adapter.getItemViewType(i));
+                adapter.onBindViewHolder(holder, i);
+                holder.itemView.measure(View.MeasureSpec.makeMeasureSpec(view.getWidth(), View.MeasureSpec.EXACTLY),
+                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+                holder.itemView.layout(0, 0, holder.itemView.getMeasuredWidth(), holder.itemView.getMeasuredHeight());
+                holder.itemView.setDrawingCacheEnabled(true);
+                holder.itemView.buildDrawingCache();
+                Bitmap drawingCache = holder.itemView.getDrawingCache();
+                if (drawingCache != null) {
+
+                    bitmaCache.put(String.valueOf(i), drawingCache);
+                }
+
+                height += holder.itemView.getMeasuredHeight();
+            }
+
+            bigBitmap = Bitmap.createBitmap(view.getMeasuredWidth(), height, Bitmap.Config.ARGB_8888);
+            Canvas bigCanvas = new Canvas(bigBitmap);
+            bigCanvas.drawColor(Color.WHITE);
+
+            for (int i = 0; i < size; i++) {
+                Bitmap bitmap = bitmaCache.get(String.valueOf(i));
+                bigCanvas.drawBitmap(bitmap, 0f, iHeight, paint);
+                iHeight += bitmap.getHeight();
+                bitmap.recycle();
+            }
+
+        }
+        return bigBitmap;
+    }
+
+    //==================================================
 
     public void addLocationBitMapToDesigner(Bitmap bitmap){
         recyclerModelList.add(new RecyclerModel(null,bitmap));

@@ -3,6 +3,7 @@ package uk.ac.tees.aad.w9580029_ultra_doc;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.io.File;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
@@ -261,7 +264,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void onLisDocClick() {
+        File file = new File(getExternalFilesDir("UltraDocPDFGen").toString());
+        Log.d("LISDOC",file.toString());
+        //File file = new File(Environment.getExternalStorageDirectory(), "UltraDocPDFGen");
+        File[] fileList = file.listFiles();
 
+        for (int i = 0; i < fileList.length; i++)
+        {
+            String name = fileList[i].getName();
+            Log.d("FILE:", fileList[i].getName() + " " + fileList[i].getAbsolutePath());
+        }
+//                Start second activity
+        Intent k = new Intent(LoginActivity.this, FileView.class);
+        startActivity(k);
     }
 
     @Override
@@ -278,7 +293,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         } else if (i == R.id.reloadButton) {
             reload();
         } else if (i == R.id.list_doc_btn) {
-
+            onLisDocClick();
         } else if (i == R.id.create_doc_btn) {
             onCreateDocClick();
         } else {
