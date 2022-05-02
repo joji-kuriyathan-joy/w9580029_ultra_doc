@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:subtitleTextColor="#FFFFFF"
-        app:title="Past Entries"
+        app:title="Documents"
         app:titleTextColor="#FFFFFF" />
 
     <androidx.recyclerview.widget.RecyclerView

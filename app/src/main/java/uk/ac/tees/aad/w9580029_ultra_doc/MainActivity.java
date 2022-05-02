@@ -2,8 +2,11 @@ package uk.ac.tees.aad.w9580029_ultra_doc;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -19,9 +22,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //if user is already logged in then continue to the List Doc Activity
 
-        //if the user is Signed Out or New to the app the show the Login Activity
+
         Intent i;
         i = new Intent(getApplicationContext(),LoginActivity.class);
         startActivity(i);

@@ -31,6 +31,7 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> i
     public interface OnItemClickListener{
         void onItemClick(int position);
         void onDeleteClick(int position);
+        void onShareClick(int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener){
@@ -42,6 +43,7 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> i
         public ImageView rowImageView;
         public TextView rowTextView;
         public ImageView rowDeleteIcon;
+        public ImageView rowShareIcon;
 
         public RowViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
@@ -49,6 +51,7 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> i
             rowImageView = itemView.findViewById(R.id.fileImage);
             rowTextView = itemView.findViewById(R.id.fileName);
             rowDeleteIcon = itemView.findViewById(R.id.deleteIcon);
+            rowShareIcon = itemView.findViewById(R.id.shareIcon);
 
             //handle adapters onclick behavior of the recyclerview. Using to handle visual changes in the XML as well
             itemView.setOnClickListener(v -> {
@@ -66,6 +69,15 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> i
                     int position = getAdapterPosition();
                     if(position != RecyclerView.NO_POSITION){
                         listener.onDeleteClick(position);
+                    }
+                }
+            });
+
+            rowShareIcon.setOnClickListener(v -> {
+                if(listener != null){
+                    int position = getAdapterPosition();
+                    if(position != RecyclerView.NO_POSITION){
+                        listener.onShareClick(position);
                     }
                 }
             });

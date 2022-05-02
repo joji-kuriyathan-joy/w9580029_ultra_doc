@@ -1,6 +1,7 @@
 package uk.ac.tees.aad.w9580029_ultra_doc;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
@@ -82,6 +83,18 @@ public class FileView extends AppCompatActivity {
                 //delete from recyclerview
                 removeItem(position);
             }
+
+            @Override
+            public void onShareClick(int position) {
+                String selectedFilePath = rowItem.get(position).getFileData().getPath();
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                Uri screenshotUri = Uri.parse(selectedFilePath);
+                sharingIntent.setType("*/*");
+                sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
+                startActivity(Intent.createChooser(sharingIntent, "Share document using"));
+            }
+
+
         });
     }
 
@@ -95,7 +108,7 @@ public class FileView extends AppCompatActivity {
         createRows();
         fileAdapter = new RowAdapter(rowItem);
         fileRecyclerView.setAdapter(fileAdapter);
-        fileAdapter.notifyDataSetChanged();
+        //fileAdapter.notifyDataSetChanged();
         searchBar.collapseActionView();
     }
 

@@ -61,7 +61,6 @@ public  class MapsFragment extends DialogFragment implements OnMapReadyCallback 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
         fetchLocation();
     }
@@ -105,13 +104,10 @@ public  class MapsFragment extends DialogFragment implements OnMapReadyCallback 
         mapScreenshotBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("jkjk","==>>Start===");
                 captureScreen();
-                Log.d("jkjk","==>>end===");
             }
         });
         return view;
-
     }
 
     @Override
@@ -121,10 +117,8 @@ public  class MapsFragment extends DialogFragment implements OnMapReadyCallback 
         mapFragment =
                 (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         if (mapFragment != null) {
-
             mapFragment.getMapAsync(this);
         }
-
     }
 
     @Override
@@ -147,7 +141,6 @@ public  class MapsFragment extends DialogFragment implements OnMapReadyCallback 
                 OutputStream fout = null;
 
                 String filePath = System.currentTimeMillis() + ".jpeg";
-
                 try
                 {
                     fout = getActivity().openFileOutput(filePath,
@@ -177,6 +170,4 @@ public  class MapsFragment extends DialogFragment implements OnMapReadyCallback 
         map.snapshot(callback);
 
     }
-
-
 }

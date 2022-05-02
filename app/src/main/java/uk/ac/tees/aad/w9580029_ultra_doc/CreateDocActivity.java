@@ -253,48 +253,58 @@ public class CreateDocActivity extends CreateDocModelActivity implements View.On
 
         } else if (i == R.id.save_pal) {
             Log.d("Pallet_Clicked", "Save Button clicked");
-
+            showProgressBarCD();
             Bitmap recycler_view_bm = getScreenshotFromRecyclerView(mCreateDocContainer);
-
-            try {
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                }
-
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-                }
-
-                //getExternalFilesDir("UltraDocPDFGen")
-                //File root = new File(Environment.getExternalStorageDirectory(), "UltraDocPDFGen");
-                File root = new File(getExternalFilesDir("UltraDocPDFGen").toString());
-
-                if (!root.exists()) {
-                    root.mkdirs();
-                }
-                File pdfFile = new File(root, cur_doc_id+".pdf");
-                Log.d("PDFile","Complete_path"+pdfFile.toString());
-                FileOutputStream fOut = new FileOutputStream(pdfFile);
-
-                PdfDocument document = new PdfDocument();
-                PdfDocument.PageInfo pageInfo = new
-                        PdfDocument.PageInfo.Builder(recycler_view_bm.getWidth(), recycler_view_bm.getHeight(), 1).create();
-                PdfDocument.Page page = document.startPage(pageInfo);
-                recycler_view_bm.prepareToDraw();
-                Canvas c;
-                c = page.getCanvas();
-                c.drawBitmap(recycler_view_bm, 0, 0, null);
-                document.finishPage(page);
-                document.writeTo(fOut);
-                document.close();
-                final Snackbar snackbar = Snackbar
-                        .make(view, "PDF generated successfully.", Snackbar.LENGTH_LONG);
-                snackbar.show();
-
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(recycler_view_bm == null){
+                Log.d("PDFile","++++++++ Recycle View dose not have any items. Show Toast");
+                Toast.makeText(this, "No items found for creating document.\nUse the pallet items to create document ", Toast.LENGTH_SHORT).show();
+                hideProgressBarCD();
             }
+            else if(mDocName.getText().toString().trim().equalsIgnoreCase("")){
+                Toast.makeText(this,"Document Name not found!\nGive a name for this document",Toast.LENGTH_LONG).show();
+                hideProgressBarCD();
+            }
+            else {
+                try {
+                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                    }
 
+                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                    }
+
+                    //getExternalFilesDir("UltraDocPDFGen")
+                    //File root = new File(Environment.getExternalStorageDirectory(), "UltraDocPDFGen");
+                    File root = new File(getExternalFilesDir("UltraDocPDFGen").toString());
+
+                    if (!root.exists()) {
+                        root.mkdirs();
+                    }
+                    File pdfFile = new File(root, mDocName.getText().toString() + ".pdf");
+                    Log.d("PDFile", "Complete_path" + pdfFile.toString());
+                    FileOutputStream fOut = new FileOutputStream(pdfFile);
+
+                    PdfDocument document = new PdfDocument();
+                    PdfDocument.PageInfo pageInfo = new
+                            PdfDocument.PageInfo.Builder(recycler_view_bm.getWidth(), recycler_view_bm.getHeight(), 1).create();
+                    PdfDocument.Page page = document.startPage(pageInfo);
+                    recycler_view_bm.prepareToDraw();
+                    Canvas c;
+                    c = page.getCanvas();
+                    c.drawBitmap(recycler_view_bm, 0, 0, null);
+                    document.finishPage(page);
+                    document.writeTo(fOut);
+                    document.close();
+                    final Snackbar snackbar = Snackbar
+                            .make(view, "PDF generated successfully.", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    hideProgressBarCD();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    hideProgressBarCD();
+                }
+            }
         }
          else if (i == R.id.location_pal) {
             Log.d("Pallet_Clicked", "Location Button clicked");
