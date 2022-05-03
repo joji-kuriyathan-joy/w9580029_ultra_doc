@@ -2,6 +2,7 @@ package uk.ac.tees.aad.w9580029_ultra_doc;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,7 +24,7 @@ public class PDFViewer extends AppCompatActivity {
 
         Intent intent = getIntent();
         filePath = intent.getExtras().getString("fileData");
-
+        Log.d("pdfV","filePath : "+filePath);
         pdfFile = new File(filePath);
         pdfView.fromFile(pdfFile).load();
 

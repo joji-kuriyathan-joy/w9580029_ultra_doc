@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/create_doc_main_layout"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout android:id="@+id/create_doc_main_layout"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/grey_100"
     android:orientation="vertical"
     android:weightSum="4">
@@ -29,7 +32,8 @@
         android:layout_marginEnd="34dp"
         android:layout_marginBottom="7dp"
         android:ems="10"
-        android:textColorHint="@color/black"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey_500"
         android:hint="@string/create_doc_hint"
         android:inputType="textPersonName"
         android:minHeight="48dp"
@@ -124,3 +128,4 @@
     </RelativeLayout>
 
 </LinearLayout>
+</ScrollView>

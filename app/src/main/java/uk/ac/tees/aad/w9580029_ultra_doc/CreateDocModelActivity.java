@@ -11,6 +11,15 @@ public class CreateDocModelActivity extends AppCompatActivity {
     @VisibleForTesting
     public ProgressBar mProgressBarCD;
 
+    public String getCurCameraPhotoPath() {
+        return curCameraPhotoPath;
+    }
+
+    public void setCurCameraPhotoPath(String curCameraPhotoPath) {
+        this.curCameraPhotoPath = curCameraPhotoPath;
+    }
+
+    public String curCameraPhotoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

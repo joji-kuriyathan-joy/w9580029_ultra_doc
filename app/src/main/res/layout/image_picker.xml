@@ -1,63 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-
-<ImageView
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="500dp"
-    android:id="@+id/imagePicker"
-    android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginTop="8dp"
-    android:background="@drawable/border"
-    android:src="@drawable/image_picker_demo_foreground">
+    android:layout_height="match_parent">
 
-</ImageView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/imagePicker"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_centerInParent="true"
-        android:id="@+id/imageToogleButton"
-        >
-        <Button
+        <ImageView
+            android:id="@+id/imagePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/border"
+            android:src="@drawable/image_picker_demo_foreground">
+
+        </ImageView>
+
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/imageToogleButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageGallery"
-            android:text="Gallery"
-            ></Button>
+            android:layout_below="@id/imagePicker"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp">
 
-        <Button
-            android:id="@+id/imageCamera"
+            <Button
+                android:id="@+id/imageGallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gallery"></Button>
+
+            <Button
+                android:id="@+id/imageCamera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Camera"></Button>
+
+
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Camera"></Button>
+            android:layout_below="@id/imageToogleButton"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp">
 
+            <Button
+                android:id="@+id/addImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Add"></Button>
 
-    </com.google.android.material.button.MaterialButtonToggleGroup>
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/imageToogleButton"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_centerInParent="true"
-        >
-        <Button
-            android:id="@+id/addImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Add"></Button>
-        <Button
-            android:id="@+id/cancelImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Cancel"></Button>
-    </com.google.android.material.button.MaterialButtonToggleGroup>
-</RelativeLayout>
+            <Button
+                android:id="@+id/cancelImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Cancel"></Button>
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+    </RelativeLayout>
+</ScrollView>
